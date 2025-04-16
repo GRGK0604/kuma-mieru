@@ -3,12 +3,55 @@
 **Kuma Mieru - A Modern Third-Party Monitoring Dashboard for Uptime Kuma**  
 Built with Next.js 15, TypeScript, and Recharts, this project enhances Uptime Kuma's public status pages with intuitive visualizations and latency charts.
 
-[中文版](README.md) | [English Version](README.en.md)
+[中文版](README.md) | English Version
 
 > [!WARNING]
 > New version (v1.1.4+) has refactored the time processing logic,
 >
 > please note to modify the `Display Timezone` (Display Timezone) to `UTC+0` time zone in the _Uptime Kuma_ settings.
+
+<div align="center">
+
+<!-- Release -->
+
+[![Release](https://img.shields.io/github/v/release/Alice39s/kuma-mieru?style=flat-square&color=blue&label=Release)](https://github.com/Alice39s/kuma-mieru/releases/latest) [![License](https://img.shields.io/github/license/Alice39s/kuma-mieru?style=flat-square&color=blue)](https://github.com/Alice39s/kuma-mieru/blob/main/LICENSE) [![Release](https://img.shields.io/github/actions/workflow/status/Alice39s/kuma-mieru/release.yml?branch=main&style=flat-square&logo=github&label=Release)](https://github.com/Alice39s/kuma-mieru/actions/workflows/release.yml) [![Docker](https://img.shields.io/github/actions/workflow/status/Alice39s/kuma-mieru/docker-build.yml?branch=main&style=flat-square&logo=docker&label=Docker)](https://github.com/Alice39s/kuma-mieru/actions/workflows/docker-build.yml)
+
+<!-- Tech Stack -->
+
+[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org/) [![React](https://img.shields.io/badge/React-v19-387CA0?style=flat-square&logo=react&logoColor=white)](https://reactjs.org/) [![Next.js](https://img.shields.io/badge/Next.js-15-black?style=flat-square&logo=next.js&logoColor=white)](https://nextjs.org/)
+
+[![Bun](https://img.shields.io/badge/Bun-Package%20Manager-14151A?style=flat-square&logo=bun&logoColor=white)](https://bun.sh/) [![Recharts](https://img.shields.io/badge/Recharts-Charting%20Library-8884d8?style=flat-square&logo=recharts&logoColor=white)](https://recharts.org/en-US/) [![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-v3-4EB9FA?style=flat-square&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+
+<!-- Project Data -->
+
+[![Stars](https://img.shields.io/github/stars/Alice39s/kuma-mieru?style=flat-square&logo=github&color=yellow&label=Stars)](https://github.com/Alice39s/kuma-mieru/stargazers) [![Forks](https://img.shields.io/github/forks/Alice39s/kuma-mieru?style=flat-square&logo=github&color=yellow&label=Forks)](https://github.com/Alice39s/kuma-mieru/network/members)
+
+</div>
+
+## Table of Contents
+
+- [Table of Contents](#table-of-contents)
+- [Key Features :sparkles:](#key-features-sparkles)
+- [Preview :camera:](#preview-camera)
+- [Deployment :star:](#deployment-star)
+  - [Vercel Deployment (Recommended)](#vercel-deployment-recommended)
+    - [1. Fork Repository](#1-fork-repository)
+    - [2. Import to Vercel](#2-import-to-vercel)
+    - [3. Configure Environment Variables](#3-configure-environment-variables)
+    - [4. Update Repository](#4-update-repository)
+  - [Local Installation](#local-installation)
+- [Docker Deployment :whale: (Beta)](#docker-deployment-whale-beta)
+  - [Using Docker Compose (Recommended)](#using-docker-compose-recommended)
+  - [Manual Docker Deployment](#manual-docker-deployment)
+  - [Environment Variables](#environment-variables)
+  - [Health Check](#health-check)
+- [Integration with Uptime Kuma :link:](#integration-with-uptime-kuma-link)
+- [FAQ :question:](#faq-question)
+  - [Why is the time I see in Kuma Mieru offset from the time I see in Uptime Kuma?](#why-is-the-time-i-see-in-kuma-mieru-offset-from-the-time-i-see-in-uptime-kuma)
+  - [Is Uptime Robot / Better Stack / other monitoring data sources compatible?](#is-uptime-robot-better-stack-other-monitoring-data-sources-compatible)
+- [Contribution Guide :handshake:](#contribution-guide-handshake)
+- [Star History :star2:](#star-history-star2)
+- [License :lock:](#license-lock)
 
 ## Key Features :sparkles:
 
@@ -35,6 +78,8 @@ Built with Next.js 15, TypeScript, and Recharts, this project enhances Uptime Ku
 
 > [!NOTE]
 > Please ensure your forked repository is public, otherwise you may encounter issues when synchronizing updates.
+>
+> Your configuration is stored in environment variables, so your forked repository will not leak any configuration information.
 
 #### 2. Import to Vercel
 
@@ -182,8 +227,11 @@ Go to https://vercel.com/new, select **Import** to import the repository you jus
 | ------------------------ | -------- | --------------------------------------- | ---------------------------------- |
 | UPTIME_KUMA_BASE_URL     | Yes      | Base URL of Uptime Kuma instance        | https://example.kuma-mieru.invalid |
 | PAGE_ID                  | Yes      | Status page path of Uptime Kuma         | test1                              |
-| FEATURE_EDIT_THIS_PAGE   | No       | Whether to show "Edit This Page" button | true/false                         |
-| FEATURE_SHOW_STAR_BUTTON | No       | Whether to show "Star on Github" button | true/false                         |
+| FEATURE_EDIT_THIS_PAGE   | No       | Whether to show "Edit This Page" button | false                              |
+| FEATURE_SHOW_STAR_BUTTON | No       | Whether to show "Star on Github" button | true                               |
+| FEATURE_TITLE            | No       | Custom page title                       | My Monitoring Dashboard            |
+| FEATURE_DESCRIPTION      | No       | Custom page description                 | A beautiful monitoring dashboard   |
+| FEATURE_ICON             | No       | Custom page icon URL                    | /icon.svg                          |
 
 ### Health Check
 

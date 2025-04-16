@@ -1,11 +1,58 @@
 # Kuma Mieru :traffic_light:
 
-**Kuma Mieru 是一款基于 Next.js 15、TypeScript 和 Recharts 构建的第三方 Uptime Kuma 监控仪表盘。** 本项目尝试使用 Recharts + Next.js 解决 Uptime Kuma 公开监控页面不够直观、没有延迟图表的缺点。
+Kuma Mieru 是一款基于 Next.js 15、TypeScript 和 Recharts 构建的第三方 Uptime Kuma 监控仪表盘。
 
-[中文版](README.md) | [English Version](README.en.md)
+本项目使用 Recharts 解决了 Uptime Kuma 内建公开状态页面不够直观、没有延迟图表等痛点。
+
+中文版 | [English Version](README.en.md)
 
 > [!WARNING]
 > 新版 (v1.1.4+) 重构了时间处理逻辑，请注意修改 _Uptime Kuma_ 后台设置的 `Display Timezone` (显示时区) 为 `UTC+0` 时区。
+
+<div align="center">
+
+<!-- Release -->
+
+[![Release](https://img.shields.io/github/v/release/Alice39s/kuma-mieru?style=flat-square&color=blue&label=Release)](https://github.com/Alice39s/kuma-mieru/releases/latest) [![License](https://img.shields.io/github/license/Alice39s/kuma-mieru?style=flat-square&color=blue)](https://github.com/Alice39s/kuma-mieru/blob/main/LICENSE) [![Release](https://img.shields.io/github/actions/workflow/status/Alice39s/kuma-mieru/release.yml?branch=main&style=flat-square&logo=github&label=Release)](https://github.com/Alice39s/kuma-mieru/actions/workflows/release.yml) [![Docker](https://img.shields.io/github/actions/workflow/status/Alice39s/kuma-mieru/docker-build.yml?branch=main&style=flat-square&logo=docker&label=Docker)](https://github.com/Alice39s/kuma-mieru/actions/workflows/docker-build.yml)
+
+<!-- Tech Stack -->
+
+[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org/) [![React](https://img.shields.io/badge/React-v19-387CA0?style=flat-square&logo=react&logoColor=white)](https://reactjs.org/) [![Next.js](https://img.shields.io/badge/Next.js-15-black?style=flat-square&logo=next.js&logoColor=white)](https://nextjs.org/)
+
+[![Bun](https://img.shields.io/badge/Bun-Package%20Manager-14151A?style=flat-square&logo=bun&logoColor=white)](https://bun.sh/) [![Recharts](https://img.shields.io/badge/Recharts-Charting%20Library-8884d8?style=flat-square&logo=recharts&logoColor=white)](https://recharts.org/en-US/) [![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-v3-4EB9FA?style=flat-square&logo=tailwind-css&logoColor=white)](https://v3.tailwindcss.com/)
+
+<!-- Project Data -->
+
+[![Stars](https://img.shields.io/github/stars/Alice39s/kuma-mieru?style=flat-square&logo=github&color=yellow&label=Stars)](https://github.com/Alice39s/kuma-mieru/stargazers) [![Forks](https://img.shields.io/github/forks/Alice39s/kuma-mieru?style=flat-square&logo=github&color=yellow&label=Forks)](https://github.com/Alice39s/kuma-mieru/network/members)
+
+</div>
+
+## 目录
+
+- [目录](#目录)
+- [功能亮点 :sparkles:](#功能亮点-sparkles)
+- [测试截图 :camera:](#测试截图-camera)
+- [快速部署 :star:](#快速部署-star)
+  - [使用 Vercel 部署 (推荐)](#使用-vercel-部署-推荐)
+    - [1. Fork 仓库](#1-fork-仓库)
+    - [2. 导入到 Vercel](#2-导入到-vercel)
+    - [3. 配置环境变量](#3-配置环境变量)
+    - [4. 更新仓库](#4-更新仓库)
+  - [本地部署](#本地部署)
+- [Docker 部署 :whale: (Beta)](#docker-部署-whale-beta)
+  - [使用 Docker Compose（推荐）](#使用-docker-compose-推荐)
+  - [Docker Run 部署](#docker-run-部署)
+    - [1. 获取容器镜像](#1-获取容器镜像)
+    - [2. 修改环境变量](#2-修改环境变量)
+    - [3. 启动容器服务](#3-启动容器服务)
+- [环境变量配置](#环境变量配置)
+- [与 Uptime Kuma 集成 :link:](#与-uptime-kuma-集成-link)
+- [FAQ :question:](#faq-question)
+  - [为什么我在 Kuma Mieru 中看到的时间与 Uptime Kuma 中有偏移？](#为什么我在-kuma-mieru-中看到的时间与-uptime-kuma-中有偏移)
+  - [请问兼容 Uptime Robot / Better Stack / 其他监控数据源吗？](#请问兼容-uptime-robot-better-stack-其他监控数据源吗)
+- [贡献指南 :handshake:](#贡献指南-handshake)
+- [Star History :star2:](#star-history-star2)
+- [开源许可 :lock:](#开源许可-lock)
 
 ## 功能亮点 :sparkles:
 
@@ -34,6 +81,8 @@ Fork 本仓库到您的 GitHub 用户下，如图所示：
 
 > [!NOTE]
 > 请确保您 Fork 的仓库是公开的，否则后续可能无法快速同步本仓库的更新。
+>
+> 请放心，您所有的配置均使用环境变量配置，Fork 的代码库 **不会泄漏** 您的任何配置信息。
 
 #### 2. 导入到 Vercel
 
@@ -185,12 +234,15 @@ docker run -d \
 
 假如您的 Uptime Kuma 的状态页面 URL 为 `https://example.kuma-mieru.invalid/status/test1`，那么您需要配置的环境变量如下：
 
-| 变量名                   | 必填 | 说明                           | 示例/可选值                        |
-| ------------------------ | ---- | ------------------------------ | ---------------------------------- |
-| UPTIME_KUMA_BASE_URL     | 是   | Uptime Kuma 实例的基础 URL     | https://example.kuma-mieru.invalid |
-| PAGE_ID                  | 是   | Uptime Kuma 实例的状态页面 ID  | test1                              |
-| FEATURE_EDIT_THIS_PAGE   | 否   | 是否展示 “编辑此页面” 按钮     | true/false                         |
-| FEATURE_SHOW_STAR_BUTTON | 否   | 是否展示 “Star on Github” 按钮 | true/false                         |
+| 变量名                   | 必填 | 说明                           | 示例/默认值                                        |
+| ------------------------ | ---- | ------------------------------ | -------------------------------------------------- |
+| UPTIME_KUMA_BASE_URL     | Yes  | Uptime Kuma 实例的基础 URL     | https://example.kuma-mieru.invalid                 |
+| PAGE_ID                  | Yes  | Uptime Kuma 实例的状态页面 ID  | test1                                              |
+| FEATURE_EDIT_THIS_PAGE   | No   | 是否展示 "Edit This Page" 按钮 | false                                              |
+| FEATURE_SHOW_STAR_BUTTON | No   | 是否展示 "Star on Github" 按钮 | true                                               |
+| FEATURE_TITLE            | No   | 自定义页面标题                 | Kuma Mieru                                         |
+| FEATURE_DESCRIPTION      | No   | 自定义页面描述                 | A beautiful and modern uptime monitoring dashboard |
+| FEATURE_ICON             | No   | 自定义页面图标URL              | /icon.svg                                          |
 
 ## 与 Uptime Kuma 集成 :link:
 
