@@ -48,6 +48,12 @@
   "modeDark": "Dark",
   "modeSystem": "System",
 
+  "noData": "No data available",
+  "safariWarning": "Safari browser is not supported yet",
+
+  "switchToLiteView": "Switch to Lite View",
+  "switchToFullView": "Switch to Full View",
+
   "status": {
     "loading": "Loading...",
     "systemNormal": "All systems operational",

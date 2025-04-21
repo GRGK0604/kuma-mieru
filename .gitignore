@@ -39,9 +39,14 @@ next-env.d.ts
 
 .env.local
 .env
+.env*
+!.env.example
 
 generated-*.json
 
 dist/
 
 *.lock
+!bun.lock
+
+@*.md
