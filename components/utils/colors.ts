@@ -35,6 +35,15 @@ export const COLOR_SYSTEM = {
       light: 'bg-warning/80',
       dark: 'bg-warning',
     },
+    label: 'nodePending',
+    showInLegend: true,
+  },
+  maintenance: {
+    text: 'text-primary-500/90 dark:text-primary-400/90',
+    bg: {
+      light: 'bg-primary/30',
+      dark: 'bg-primary/80',
+    },
     label: 'nodeMaintenance',
     showInLegend: true,
   },
